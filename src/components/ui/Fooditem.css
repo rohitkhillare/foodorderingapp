@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: auto auto auto;
   width: 55;
-  }
+}
 .itemcontainer {
   display: flex;
   width: auto;
@@ -12,7 +12,7 @@
   justify-content: space-around;
   border: 5px solid grey;
   margin: 10px;
-  padding:5px;
+  padding: 5px;
 }
 .centercontainer {
   align-self: center;
@@ -23,22 +23,31 @@
   height: 150px;
   align-self: center;
 }
-.maincontainer{
-  display:flex;
+.maincontainer {
+  display: flex;
   grid-template-columns: auto auto;
 }
-.filtercontainer{
-  width:45%
+.filtercontainer {
+  width: 45%;
 }
-.box{
-  display:flex;
+.box {
+  display: flex;
   flex-direction: row;
   align-content: center;
 }
-.cat_name{
+.cat_name {
   align-self: center;
 }
 
-.checkbox{
+.checkbox {
   padding: 10px;
+}
+
+.reset {
+  background-color: #1e81e4;
+  color: #fff;
+  margin: 10px;
+  height: 40px;
+  width: 200px;
+  align-self: center;
 }

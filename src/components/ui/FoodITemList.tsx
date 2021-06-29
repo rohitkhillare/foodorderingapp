@@ -10,7 +10,7 @@ import CartButton from "./CartButton";
 import "./Fooditem.css";
 import { Accordion, Card, Button, ListGroup } from 'react-bootstrap';
 import AddnewItemform from "./AddnewItemform";
-
+import { AddItemInList } from "../../action";
 
 interface IFoodItemList {
   list:
@@ -29,7 +29,6 @@ interface IProps {
 }
 const FoodItemList: FC<IProps> = ({ foodlistreducer, AddItemInList }): JSX.Element => {
 
-  const [v, setV] = useState<string>("0");
   const [getFoodItemList, setFoodItemList] = useState<IFoodItemList["list"]>(
     []
   );
@@ -38,10 +37,14 @@ const FoodItemList: FC<IProps> = ({ foodlistreducer, AddItemInList }): JSX.Eleme
   const [categoryList, setCategoryList] = useState<any>([]);
 
   useEffect(() => {
+    initList();
+  }, []);
+
+  const initList = (): void => {
     setFoodItemList(fooditemlist);
     console.log('fooditemlist', foodlistreducer);
     sortCategory();
-  }, []);
+  }
 
 
   const sortCategory = () => {
@@ -90,6 +93,36 @@ const FoodItemList: FC<IProps> = ({ foodlistreducer, AddItemInList }): JSX.Eleme
     return checkedItemList[index].isChecked;
   }
 
+
+  const handleAllSelectionCheckBox = (item: any): void => {
+    const data = foodlistreducer.filter(
+      list => list.cat === item.category
+    )
+    setFoodItemList(data);
+    setFilteredData(data);
+  }
+
+  const handleRemoveItemWhenUnCheck = (item: any): void => {
+    const sortedData = getFoodItemList.filter(e => e.cat !== item.category)
+    setFoodItemList(sortedData);
+  }
+
+  const addNewCheckedItemInList = (item: any): void => {
+    const tempOfData: IFoodItemList['list'] = [...getFoodItemList];
+
+    setFilteredData(getFoodItemList);
+    const newfilteredvalue = foodlistreducer.filter(
+      list => list.cat === item.category
+    )
+    console.log('when added more====>');
+    console.log('OLD DATA', tempOfData);
+    console.log('NEW DATA TO BE MERGED IN OLD', newfilteredvalue);
+    for (var i = 0; i < tempOfData.length; i++) {
+      newfilteredvalue.push(tempOfData[i]);
+    }
+    setFoodItemList(newfilteredvalue);
+
+  }
 
 
 
@@ -149,33 +182,16 @@ const FoodItemList: FC<IProps> = ({ foodlistreducer, AddItemInList }): JSX.Eleme
                                 setFoodItemList(foodlistreducer);
                               } else {
                                 if (item.isChecked === false) {
-
-
+                                  if (getFoodItemList.length > 0) {
+                                    handleRemoveItemWhenUnCheck(item);
+                                  } else {
+                                    handleAllSelectionCheckBox(item);
+                                  }
                                 } else {
                                   if (getFilteredData.length > 0) {
-                                    const tempOfData: IFoodItemList['list'] = [...getFoodItemList];
-
-                                    setFilteredData(getFoodItemList);
-                                    const newfilteredvalue = foodlistreducer.filter(
-                                      list => list.cat === item.category
-                                    )
-                                    console.log('when added more====>');
-                                    console.log('OLD DATA', tempOfData);
-                                    console.log('NEW DATA TO BE MERGED IN OLD', newfilteredvalue);
-                                    for (var i = 0; i < tempOfData.length; i++) {
-                                      newfilteredvalue.push(tempOfData[i]);
-                                    }
-                                    setFoodItemList(newfilteredvalue);
-
-
-
+                                    addNewCheckedItemInList(item);
                                   } else {
-                                    const data = foodlistreducer.filter(
-                                      list => list.cat === item.category
-                                    )
-                                    setFoodItemList(data);
-                                    setFilteredData(data);
-
+                                    handleAllSelectionCheckBox(item);
                                   }
 
                                 }
@@ -188,13 +204,25 @@ const FoodItemList: FC<IProps> = ({ foodlistreducer, AddItemInList }): JSX.Eleme
                       </ListGroup.Item>
                     })}
 
+                    <button
+                      onClick={() => {
+                        initList();
+                      }}
+                      className={'reset'}>CLEAR FILTER</button>
 
+                    {/* <button
+                      onClick={() => {
+                        AddItemInList({ type: 'add', value: [] });
+                        console.log(foodlistreducer);
+                        
+                      }}
+                      className={'reset'}>CLEAR CART</button> */}
                   </ListGroup>
 
                 </Card.Body>
               </Accordion.Collapse>
             </Card>
-            <Card>
+            {/* <Card>
               <Card.Header>
                 <Accordion.Toggle as={Button} eventKey="1">
                   Add new Product
@@ -207,7 +235,8 @@ const FoodItemList: FC<IProps> = ({ foodlistreducer, AddItemInList }): JSX.Eleme
                     AddItemInList={AddItemInList} foodlistreducer={foodlistreducer} />
                 </Card.Body>
               </Accordion.Collapse>
-            </Card>
+            </Card> */}
+
           </Accordion>
         </div>
       </div>
@@ -220,4 +249,4 @@ const mapStateToProps = (state: any) => {
   return state
 }
 
-export default connect(mapStateToProps, null)(FoodItemList);
+export default connect(mapStateToProps, { AddItemInList })(FoodItemList);

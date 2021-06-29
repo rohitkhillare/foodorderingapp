@@ -1,4 +1,4 @@
-export default AddItemInList=(type, value)=>{
+export const AddItemInList=(type, value)=>{
 return {
     type: type,
     value: value
