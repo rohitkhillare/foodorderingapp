@@ -1,0 +1,13 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: #cb202d;
+}
+
+.header-title {
+  align-self: center;
+  color: black;
+}

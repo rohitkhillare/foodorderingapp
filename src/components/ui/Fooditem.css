@@ -1,0 +1,44 @@
+.container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  width: 55;
+  }
+.itemcontainer {
+  display: flex;
+  width: auto;
+  height: 250px;
+  flex-direction: row;
+  align-self: center;
+  justify-content: space-around;
+  border: 5px solid grey;
+  margin: 10px;
+  padding:5px;
+}
+.centercontainer {
+  align-self: center;
+}
+
+.productimage {
+  width: 150px;
+  height: 150px;
+  align-self: center;
+}
+.maincontainer{
+  display:flex;
+  grid-template-columns: auto auto;
+}
+.filtercontainer{
+  width:45%
+}
+.box{
+  display:flex;
+  flex-direction: row;
+  align-content: center;
+}
+.cat_name{
+  align-self: center;
+}
+
+.checkbox{
+  padding: 10px;
+}

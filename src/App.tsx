@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment, useEffect } from "react";
+import { connect } from "react-redux";
+import Headerbar from "./components/header/Headerbar";
+import FoodItemList from "./components/ui/FoodITemList";
+const App = (props: any) => {
+  useEffect(() => {
 
-function App() {
+
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <Headerbar foodlistreducer={props.foodlistreducer} />
+      <main>
+        <FoodItemList
+          AddItemInList={props.AddItemInList}
+          foodlistreducer={props.foodlistreducer} />
+      </main>
+    </Fragment>
   );
 }
 
-export default App;
+const mapStateToProps = (state: any) => {
+  console.log('THE STATE', state);
+
+  return state
+}
+export default connect(mapStateToProps, null)(App);
