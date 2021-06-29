@@ -37,7 +37,9 @@ const FoodItemList: FC<IProps> = ({ foodlistreducer, AddItemInList }): JSX.Eleme
   const [categoryList, setCategoryList] = useState<any>([]);
 
   useEffect(() => {
-    initList();
+    setFoodItemList(fooditemlist);
+    console.log('fooditemlist', foodlistreducer);
+    sortCategory();
   }, []);
 
   const initList = (): void => {
@@ -210,13 +212,6 @@ const FoodItemList: FC<IProps> = ({ foodlistreducer, AddItemInList }): JSX.Eleme
                       }}
                       className={'reset'}>CLEAR FILTER</button>
 
-                    {/* <button
-                      onClick={() => {
-                        AddItemInList({ type: 'add', value: [] });
-                        console.log(foodlistreducer);
-                        
-                      }}
-                      className={'reset'}>CLEAR CART</button> */}
                   </ListGroup>
 
                 </Card.Body>
