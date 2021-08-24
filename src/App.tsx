@@ -5,7 +5,8 @@ import FoodItemList from "./components/ui/FoodITemList";
 const App = (props: any) => {
   useEffect(() => {
 
-
+ 
+    
   }, []);
   return (
     <Fragment>
